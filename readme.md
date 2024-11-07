@@ -2,7 +2,7 @@
 
 Repository containing a collection of technical articles written by [Raphael Carubbi](https://github.com/rcarubbi). These articles cover a variety of topics related to software development, best practices, architectural patterns, optimizations, and the use of technologies in the .NET ecosystem.
 
-> [Leia este README em Português](./README.pt-br.md)
+> [Leia este README em Português](./readme.pt-br.md)
 
 ## Repository Structure
 
