@@ -6,9 +6,15 @@ Neste artigo, vamos explorar uma abordagem para validação em .NET utilizando a
 
 Frequentemente, vemos código de validação estruturado da seguinte forma:
 
-1. **Abordagem Simples com Retorno de Booleano**: Muitas vezes, métodos de validação retornam apenas `true` ou `false`, indicando se o objeto é válido. Isso, no entanto, limita o controle sobre os erros específicos e dificulta o manuseio detalhado de respostas de validação.
+<p align="center">
+  <img src="assets/image1.png" alt="comparação das abordagens de validação em .net">
+</p>
+
+### 1. Abordagem Simples com Retorno de Booleano
+Muitas vezes, métodos de validação retornam apenas `true` ou `false`, indicando se o objeto é válido. Isso, no entanto, limita o controle sobre os erros específicos e dificulta o manuseio detalhado de respostas de validação.
    
-2. **Abordagem de Lista de Erros (IEnumerable de Strings)**: Outra prática comum é acumular erros em uma lista de strings, retornando essa lista ao final da validação. Isso melhora a visibilidade dos erros, mas pode ser confuso, pois requer que o consumidor do código interprete o significado de uma lista vazia como uma validação bem-sucedida. Além disso, essa abordagem carece de clareza em relação ao tipo e à natureza dos erros.
+### 2. Abordagem de Lista de Erros (IEnumerable de Strings)
+Outra prática comum é acumular erros em uma lista de strings, retornando essa lista ao final da validação. Isso melhora a visibilidade dos erros, mas pode ser confuso, pois requer que o consumidor do código interprete o significado de uma lista vazia como uma validação bem-sucedida. Além disso, essa abordagem carece de clareza em relação ao tipo e à natureza dos erros.
 
 Ambas as abordagens sofrem com problemas de escalabilidade e complexidade, especialmente em cenários onde validações específicas podem ser aplicadas dinamicamente.
 

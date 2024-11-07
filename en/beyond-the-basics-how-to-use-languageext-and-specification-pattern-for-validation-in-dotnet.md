@@ -6,6 +6,10 @@ In this article, we'll explore an approach to validation in .NET using the Langu
 
 Often, we see validation code structured as follows:
 
+<p align="center">
+  <img src="assets/image1.png" alt="comparing validation approaches in .net">
+</p>
+
 1. **Simple Boolean Return Approach**: Frequently, validation methods return only `true` or `false`, indicating whether the object is valid. This, however, limits control over specific errors and makes detailed handling of validation responses difficult.
    
 2. **Error List Approach (IEnumerable of Strings)**: Another common practice is to accumulate errors in a list of strings, returning this list at the end of validation. This improves error visibility but can be confusing, as the consumer of the code must interpret an empty list as successful validation. Moreover, this approach lacks clarity regarding the type and nature of the errors.
