@@ -6,9 +6,7 @@ Neste artigo, vamos explorar uma abordagem para validação em .NET utilizando a
 
 Frequentemente, vemos código de validação estruturado da seguinte forma:
 
-<p align="center">
-  <img src="assets/image1.png" alt="comparação das abordagens de validação em .net">
-</p>
+![comparação das abordagens de validação em .net](assets/image1.png)
 
 ### 1. Abordagem Simples com Retorno de Booleano
 Muitas vezes, métodos de validação retornam apenas `true` ou `false`, indicando se o objeto é válido. Isso, no entanto, limita o controle sobre os erros específicos e dificulta o manuseio detalhado de respostas de validação.
@@ -111,9 +109,7 @@ Aqui, a função `Match` verifica se a validação foi bem-sucedida ou não. Em 
 - **Desempenho**: O código evita validações desnecessárias por meio de short-circuiting e não precisa alocar listas adicionais.
 - **Facilidade de Integração**: O resultado de `Validation` pode ser facilmente mapeado para respostas HTTP em APIs.
 
-<p align="center">
-  <img src="assets/image2.png" alt="Benefícios da Abordagem Funcional">
-</p>
+![Benefícios da Abordagem Funcional](assets/image2.png)
 
 ## Conclusão
 
