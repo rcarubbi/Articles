@@ -111,6 +111,10 @@ Aqui, a função `Match` verifica se a validação foi bem-sucedida ou não. Em 
 - **Desempenho**: O código evita validações desnecessárias por meio de short-circuiting e não precisa alocar listas adicionais.
 - **Facilidade de Integração**: O resultado de `Validation` pode ser facilmente mapeado para respostas HTTP em APIs.
 
+<p align="center">
+  <img src="assets/image2.png" alt="Benefícios da Abordagem Funcional">
+</p>
+
 ## Conclusão
 
 Essa combinação de LanguageExt com o Specification Pattern traz uma abordagem de validação modular e funcional, que facilita o manuseio de erros e melhora a escalabilidade. Além de organizar o código, esse método permite controlar a execução das regras de validação de maneira robusta e adaptável, favorecendo o desenvolvimento de aplicações mais seguras e de fácil manutenção em .NET.
