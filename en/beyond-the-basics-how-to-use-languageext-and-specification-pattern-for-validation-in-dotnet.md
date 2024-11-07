@@ -109,6 +109,10 @@ Here, the `Match` function checks if validation was successful or not. On succes
 - **Performance**: The code avoids unnecessary validations through short-circuiting and doesn't need to allocate additional lists.
 - **Ease of Integration**: The `Validation` result can be easily mapped to HTTP responses in APIs.
 
+<p align="center">
+  <img src="assets/image2.png" alt="functional validation benefits">
+</p>
+
 ## Conclusion
 
 Combining LanguageExt with the Specification Pattern provides a modular and functional validation approach, making error handling easier and improving scalability. Besides organizing the code, this method allows robust and adaptable control over validation rule execution, favoring the development of more secure and maintainable .NET applications.
