@@ -245,8 +245,10 @@ A plataforma gerencia os ambientes de desenvolvimento e produção de forma estr
 
 O ChatbotStudio é open-source e está pronto para colaboração. Confira no [GitHub](https://github.com/rcarubbi/Carubbi.ChatbotStudio) para explorar o código, contribuir ou adaptá-lo para seus próprios projetos. Para ver de perto, assista à demo no YouTube: [Assista Aqui](https://www.youtube.com/watch?v=Ri5ABGHxGq0).
 Para ver a ferramenta em ação, você também pode assistir a esses clipes curtos de demonstração abaixo:
-* https://user-images.githubusercontent.com/1128724/168243164-812d8af8-a24b-4f11-a46c-f85d82017d64.mp4
-* https://user-images.githubusercontent.com/1128724/168454581-0590a0ca-59f2-4098-9299-c5a4563bde78.mp4 
+
+https://user-images.githubusercontent.com/1128724/168243164-812d8af8-a24b-4f11-a46c-f85d82017d64.mp4
+
+https://user-images.githubusercontent.com/1128724/168454581-0590a0ca-59f2-4098-9299-c5a4563bde78.mp4
 
 Adoraria ouvir seu feedback ou sugestões para futuras melhorias! Vamos juntos expandir os limites do desenvolvimento de chatbots.
 
