@@ -12,6 +12,8 @@ My goal for ChatbotStudio was clear: simplify chatbot creation without sacrifici
 - **Real-Time Testing**: A built-in testing environment to simulate conversations and adjust flows seamlessly.
 - **Separate Environments for Development and Production**: To avoid impacting the live chatbot during updates and testing.
 
+![Chatbots development process](assets/image3.png)
+
 ## 2. **Technology Stack**
 
 Choosing the right tools was crucial. Here's what powers ChatbotStudio:
@@ -242,9 +244,11 @@ The platform manages development and production environments in a structured way
 ## 🚀 **Get Involved!**
 
 ChatbotStudio is open-source and ready for collaboration. Check it out on [GitHub](https://github.com/rcarubbi/Carubbi.ChatbotStudio) to explore the code, contribute, or adapt it for your own projects. For a closer look, watch the demo on YouTube: [Watch Here](https://www.youtube.com/watch?v=Ri5ABGHxGq0).
-To see the tool in action, you can also watch these short demo clips below:
-* https://user-images.githubusercontent.com/1128724/168243164-812d8af8-a24b-4f11-a46c-f85d82017d64.mp4
-* https://user-images.githubusercontent.com/1128724/168454581-0590a0ca-59f2-4098-9299-c5a4563bde78.mp4 
+To see the tool in action, you can also watch these short demo clips in pt-br below:
+
+https://user-images.githubusercontent.com/1128724/168243164-812d8af8-a24b-4f11-a46c-f85d82017d64.mp4
+
+https://user-images.githubusercontent.com/1128724/168454581-0590a0ca-59f2-4098-9299-c5a4563bde78.mp4
 
 I’d love to hear your feedback or suggestions for future enhancements! Let’s push the boundaries of chatbot development together. 
 
