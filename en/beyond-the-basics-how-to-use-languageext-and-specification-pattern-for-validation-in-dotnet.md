@@ -6,9 +6,7 @@ In this article, we'll explore an approach to validation in .NET using the Langu
 
 Often, we see validation code structured as follows:
 
-<p align="center">
-  <img src="assets/image1.png" alt="comparing validation approaches in .net">
-</p>
+![Comparing validation approaches in .net](assets/image1.png)
 
 1. **Simple Boolean Return Approach**: Frequently, validation methods return only `true` or `false`, indicating whether the object is valid. This, however, limits control over specific errors and makes detailed handling of validation responses difficult.
    
@@ -109,9 +107,7 @@ Here, the `Match` function checks if validation was successful or not. On succes
 - **Performance**: The code avoids unnecessary validations through short-circuiting and doesn't need to allocate additional lists.
 - **Ease of Integration**: The `Validation` result can be easily mapped to HTTP responses in APIs.
 
-<p align="center">
-  <img src="assets/image2.png" alt="functional validation benefits">
-</p>
+![Functional validation benefits](assets/image2.png)
 
 ## Conclusion
 
