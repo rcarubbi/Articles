@@ -39,7 +39,7 @@ Configurar o Blockly foi um passo crucial no projeto. A interface permite que os
    Para criar novos blocos personalizados, você pode usar as [Ferramentas de Desenvolvedor do Blockly](https://blockly-demo.appspot.com/static/demos/blockfactory/index.html). Esta ferramenta ajuda a gerar o código de definição do bloco, assim como a configuração da toolbox e do workspace, facilitando a integração de novos blocos no seu projeto.
 
    **Exemplo** (do `customblocks.js`):
-   \```javascript
+   ```javascript
    // Definir um bloco personalizado para enviar mensagens
    const jsonBotDefinitionBlocks = [
      {
@@ -57,14 +57,14 @@ Configurar o Blockly foi um passo crucial no projeto. A interface permite que os
      },
      // Definições de blocos adicionais...
    ];
-   \```
+   ```
 
 2. **Representação do Fluxo**: Para facilitar a visualização da estrutura da conversa, implementei um diagrama de fluxo dinâmico usando flowchart.js. Essa biblioteca gera diagramas de fluxo a partir de uma linguagem de script simples. Para conectar os blocos do Blockly ao diagrama de fluxo, desenvolvi um parser personalizado que converte as estruturas dos blocos no formato de script exigido pelo flowchart.js. Essa integração oferece aos usuários uma visão visual intuitiva de seus fluxos de conversação.
 
 3. **Saída JSON Personalizada**: Um gerador personalizado foi desenvolvido para converter os blocos em um formato JSON estruturado que o backend possa processar.
 
    **Exemplo** (do `codeGenerator.js`):
-   \```javascript
+   ```javascript
    // Gerador para converter o workspace do Blockly em JSON
    const JsonBotDefinition = new Blockly.Generator('JsonBotDefinition');
 
@@ -89,7 +89,7 @@ Configurar o Blockly foi um passo crucial no projeto. A interface permite que os
        }
        return null; // Retornar nulo se o bloco não for válido
    };
-   \```
+   ```
 
 ---
 
@@ -102,7 +102,7 @@ O backend, construído com o Microsoft Bot Framework, interpreta o fluxo JSON do
 ### Exemplo: Manipulando uma Mensagem Simples
 
 **Exemplo** (do `MessageDialog.cs`):
-\```csharp
+```csharp
 // Executar a ação de início do diálogo
 protected override async Task PerformStartAsync(IDialogContext context)
 {
@@ -130,7 +130,7 @@ protected override async Task PerformStartAsync(IDialogContext context)
         context.Done<object>(null); // Encerrar a conversa se não houver próximo passo
     }
 }
-\```
+```
 
 ---
 
@@ -139,7 +139,7 @@ protected override async Task PerformStartAsync(IDialogContext context)
 O arquivo `MapsDialog.cs` ilustra como a plataforma se integra com serviços de mapas para fornecer funcionalidades baseadas em localização.
 
 **Exemplo** (do `MapsDialog.cs`):
-\```csharp
+```csharp
 // Executar a ação de início do diálogo de mapas
 protected override async Task PerformStartAsync(IDialogContext context)
 {
@@ -179,7 +179,7 @@ protected override async Task PerformStartAsync(IDialogContext context)
         }
     }
 }
-\```
+```
 
 ---
 
@@ -190,7 +190,7 @@ protected override async Task PerformStartAsync(IDialogContext context)
 Para simplificar a configuração de expressões, implementei o **Intellisense**. Esse recurso sugere etapas e valores capturados anteriormente enquanto o usuário digita e inclui um sistema de **Auto-Complete** que sugere dinamicamente valores de entrada para campos específicos, melhorando a experiência do usuário e reduzindo erros.
 
 **Exemplo** (do `FieldAutoComplete.js`):
-\```javascript
+```javascript
 // Campo de auto-completar personalizado para Blockly
 export class FieldAutoComplete extends Blockly.FieldTextInput {
     // Função debounce para limitar a frequência de chamadas de API
@@ -220,7 +220,7 @@ export class FieldAutoComplete extends Blockly.FieldTextInput {
         }
     }
 }
-\```
+```
 
 ### Testes em Tempo Real e Validação do Fluxo
 
