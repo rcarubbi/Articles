@@ -114,6 +114,8 @@ These methods use reflection to identify public and static fields that correspon
 
 To illustrate the functionality, let's apply our `Enumeration` class by creating a `CreditCard` class. In this class, we define specific cards and their respective discounts.
 
+![CreditCard example diagram](assets/image6.png)
+
 ```csharp
 public abstract class CreditCard : Enumeration<CreditCard>
 {

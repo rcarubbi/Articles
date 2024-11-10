@@ -114,6 +114,8 @@ Esses métodos usam reflexão para identificar os campos públicos e estáticos 
 
 Para ilustrar a funcionalidade, vamos aplicar nossa classe `Enumeration` criando uma classe `CreditCard`. Nessa classe, definimos cartões específicos e seus respectivos descontos.
 
+![Diagram do Exemplo de Uso com Cartão de Crédito](assets/image6.png)
+
 ```csharp
 public abstract class CreditCard : Enumeration<CreditCard>
 {
