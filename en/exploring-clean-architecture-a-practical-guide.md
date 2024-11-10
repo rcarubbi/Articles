@@ -1,34 +1,54 @@
 # 🛠️ Exploring Clean Architecture: A Practical Guide 📖
 
-Clean Architecture is a software design approach that aims to separate system responsibilities into well-defined layers. This modular structure makes the system easier to maintain and scale, promoting **separation of concerns** and facilitating code comprehension and modifications. Let's break down how each layer works and its importance.
+Clean Architecture is a software design approach that separates system responsibilities into well-defined layers. This modular structure simplifies maintenance and scalability, promoting **separation of concerns** and facilitating code comprehension and modifications. Let's explore how each layer works and why it matters.
+
+Imagine a scenario where your system needs to support a new database or a different user interface. With Clean Architecture, such changes become easier to handle, as core business logic remains unaffected by external dependencies. As Uncle Bob emphasizes, the center of your application should be the **use cases** and business logic, not frameworks or databases.
+
+![Clean architecture diagram](assets/image4.png)
+
+## Why Choose Clean Architecture?
+
+Clean Architecture helps mitigate several common architectural problems:
+
+- **Early Commitments**: Traditional architectures often force teams to make crucial decisions at the start of a project when understanding of the problem domain is minimal. Clean Architecture encourages **deferring decisions** about frameworks, databases, and other details until they are necessary, keeping the design open to change as requirements evolve.
+- **Rigid and Hard-to-Change Systems**: Without a clean structure, new requirements often require either a "hacky" solution or a costly redesign. By decoupling business rules from implementation details, Clean Architecture makes the system easier to adapt and extend.
+- **Framework-Centric Design**: Frameworks should be tools, not the architecture itself. They can evolve and introduce breaking changes, but if your system is framework-agnostic, it won’t be affected as severely. Uncle Bob emphasizes that frameworks are details and should be kept at the periphery.
+- **Database-First Thinking**: Many systems are built around the database, turning everything into CRUD operations. Clean Architecture treats the database as just another data provider, ensuring that business logic remains database-agnostic.
+- **Scattered Business Logic**: When business rules are spread across multiple layers, understanding or modifying behavior becomes difficult. Clean Architecture centralizes business logic within **use cases**, making it easy to locate and maintain.
+- **Slow and Brittle Tests**: Coupling business logic with the UI or database can make testing slow and fragile. Clean Architecture promotes decoupling, enabling fast, reliable unit tests that focus on core logic.
 
 ## Key Concepts of Clean Architecture
 
-1. **Architecture with Separation of Concerns**:
-   Clean Architecture distributes application responsibilities into distinct layers, which helps reduce dependencies and makes maintenance and scalability easier. Each layer is responsible for a specific part of the application, making the code more organized and predictable.
+### 1. Separating Concerns for Flexibility
+Clean Architecture organizes responsibilities into distinct layers, reducing dependencies and making maintenance easier. Each layer has a specific role, resulting in a more predictable and organized codebase.
 
-2. **Focus on Domain**:
-   The domain layer is the heart of the system, encapsulating **business logic** and essential elements like entities and business rules. It is independent of other layers, allowing better adherence to business requirements and making unit testing easier.
+### 2. Domain-Centric Design
+The domain layer is the core of the system, encapsulating **business logic** and essential entities. It is independent of other layers, adhering closely to business requirements and simplifying unit testing.
 
-3. **CQRS (Command Query Responsibility Segregation)**:
-   Implementing the CQRS pattern separates data reading and writing operations, optimizing performance for each type of operation. This pattern makes the code clearer and improves resource management, especially in high-load applications.
+### 3. Use Cases and Application Logic
+Use cases are **application-specific business rules** that coordinate interactions between entities. They handle input and output while remaining unaware of data sources or presentation details.
 
-4. **Infrastructure Flexibility**:
-   The infrastructure layer manages external integrations, such as databases and messaging systems, hiding implementation details from the rest of the application. This flexibility allows modifying technologies or integrations without impacting business logic.
+- **Request and Response Models**: Use simple data structures to decouple use cases from frameworks, keeping core logic focused and testable.
+- **CQRS (Command Query Responsibility Segregation)**: The CQRS pattern separates data reading and writing operations, optimizing performance and making code clearer. This approach ensures that the application layer handles business logic without infrastructure concerns.
 
-5. **Presentation Layer for User Interaction**:
-   The presentation layer serves as the interface for users to interact with the system, usually through RESTful APIs or gRPC. It should delegate business logic to the application layer, remaining thin and focused on user interaction.
+### 4. Infrastructure as a Plugin
+The infrastructure layer manages external integrations, such as databases and messaging systems, hiding implementation details from the rest of the application. Treating infrastructure as **plugins** makes replacing or modifying technology easier without impacting business logic.
 
-6. **Dependency Injection**:
-   Using dependency injection is crucial to maintain architecture integrity. It helps control dependencies between layers and allows the system to be configured flexibly, facilitating testing and maintenance.
+- **Hexagonal Architecture**: Also known as Ports and Adapters, this pattern emphasizes a clean separation between the core and external systems, enhancing flexibility.
 
-### Practical Example: Layers and Functionality
+### 5. Presentation Layer: The User Interface
+The presentation layer handles user interaction, often through RESTful APIs or gRPC. It delegates business logic to the application layer, focusing only on input and output.
 
-Below, we detail each layer with practical examples:
+### 6. Dependency Injection
+Dependency injection is crucial for maintaining architecture integrity. It controls dependencies between layers, enabling flexibility and simplifying testing.
 
-### 1. Domain Layer
+## Practical Example: Layers and Functionality
 
-At the core of the architecture, the **Domain Layer** defines business entities and fundamental rules. This is where we encapsulate essential logic, such as in the example below with a `Webinar` entity:
+Let's break down each layer with practical examples.
+
+### Domain Layer
+
+The **Domain Layer** defines business entities and core rules. For instance, a `Webinar` entity might look like this:
 
 ```csharp
 public class Webinar
@@ -39,7 +59,7 @@ public class Webinar
 
     public Webinar(string name, DateTime scheduledOn)
     {
-        Id = Guid.NewGuid();
+        Id = Guid.NewGuid(); // Generates a unique identifier for the webinar
         Name = name;
         ScheduledOn = scheduledOn;
     }
@@ -50,34 +70,33 @@ public class Webinar
     }
 }
 ```
-
-Here, we also define **repository interfaces** and **custom exceptions**:
+Entities are **self-contained** and evolve based on business needs, not on external system constraints. We also define **repository interfaces** and **custom exceptions**:
 
 ```csharp
 public interface IWebinarRepository
 {
-    Webinar GetById(Guid id);
-    void Add(Webinar webinar);
+    Task<Webinar?> GetById(Guid id, CancellationToken cancellationToken);
+
+    Task Add(Webinar webinar, CancellationToken cancellationToken);
 }
+
 
 public class WebinarNotFoundException : Exception
 {
     public WebinarNotFoundException(Guid webinarId)
-        : base($"Webinar with ID {webinarId} was not found.")
-    { }
+        : base($"Webinar with ID {webinarId} was not found.") { }
 }
+
 ```
 
-### 2. Application Layer
+### Application Layer
 
-The **Application Layer** orchestrates business rules and implements **use cases** of the system. This is where we apply the **CQRS** pattern, separating commands and queries to handle write and read operations more efficiently.
-
-#### Example: Creating a Webinar with a Command and Handler
+The **Application Layer** manages use cases and implements **CQRS** to separate commands and queries, ensuring efficiency.
 
 **`CreateWebinarCommand` Command:**
 
 ```csharp
-public class CreateWebinarCommand
+public class CreateWebinarCommand : IRequest<Guid>
 {
     public string Name { get; set; }
     public DateTime ScheduledOn { get; set; }
@@ -87,7 +106,7 @@ public class CreateWebinarCommand
 **`CreateWebinarCommandHandler` Handler:**
 
 ```csharp
-public class CreateWebinarCommandHandler
+public class CreateWebinarCommandHandler : IRequestHandler<CreateWebinarCommand, Guid>
 {
     private readonly IWebinarRepository _repository;
 
@@ -96,24 +115,54 @@ public class CreateWebinarCommandHandler
         _repository = repository;
     }
 
-    public Guid Handle(CreateWebinarCommand command)
+
+    public async Task<Guid> Handle(CreateWebinarCommand command, CancellationToken cancellationToken)
     {
         var webinar = new Webinar(command.Name, command.ScheduledOn);
-        _repository.Add(webinar);
+        await _repository.Add(webinar, cancellationToken);
         return webinar.Id;
     }
 }
 ```
 
-#### Benefits of CQRS
+**`GetWebinarByIdQuery` Query:**
 
-Using CQRS in the application layer allows the system to handle read and write operations separately, improving performance and making data flow easier to understand.
+```csharp
+public class GetWebinarByIdQuery : IRequest<Webinar?>
+{
+    public Guid Id { get; set; }
+}
 
-### 3. Infrastructure Layer
+```
 
-The **Infrastructure Layer** handles external integrations, such as databases and messaging systems. It encapsulates the complexity of interacting with these systems, keeping business logic decoupled.
+**`GetWebinarByIdQueryHandler` Handler:**
 
-#### Example: Repository for Database Access
+```csharp
+public class GetWebinarByIdQueryHandler : IRequestHandler<GetWebinarByIdQuery, Webinar?>
+{
+    private readonly IWebinarRepository _repository;
+
+    public GetWebinarByIdQueryHandler(IWebinarRepository repository)
+    {
+        _repository = repository;
+    }
+
+    public async Task<Webinar?> Handle(GetWebinarByIdQuery request, CancellationToken cancellationToken)
+    {
+        var webinar = await _repository.GetById(request.Id, cancellationToken);
+        if (webinar is null)
+            throw new WebinarNotFoundException(request.Id);
+
+        return webinar;
+    }
+}
+```
+
+This structure keeps use cases isolated and easily testable.
+
+### Infrastructure Layer
+
+The **Infrastructure Layer** handles external system integrations, like database access:
 
 ```csharp
 public class WebinarRepository : IWebinarRepository
@@ -125,26 +174,25 @@ public class WebinarRepository : IWebinarRepository
         _dbContext = dbContext;
     }
 
-    public Webinar GetById(Guid id)
+    public async Task<Webinar?> GetById(Guid id, CancellationToken cancellationToken)
     {
-        return _dbContext.Webinars.Find(id);
+        return await _dbContext.Webinars.FindAsync(id, cancellationToken);
     }
 
-    public void Add(Webinar webinar)
+    public async Task Add(Webinar webinar, CancellationToken cancellationToken)
     {
-        _dbContext.Webinars.Add(webinar);
-        _dbContext.SaveChanges();
+        await _dbContext.Webinars.AddAsync(webinar, cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }
+
 ```
 
-By isolating database access logic, the infrastructure layer makes it easier to modify or replace external technologies without impacting the core system code.
+By encapsulating this logic, the system remains flexible to technological changes.
 
-### 4. Presentation Layer
+### Presentation Layer
 
-The **Presentation Layer** provides an interface for users and other systems to interact with the application, often via REST APIs. This layer should be lightweight, delegating business logic to the application layer.
-
-#### Example: API for User Interaction
+The **Presentation Layer** provides APIs for user interaction:
 
 ```csharp
 [ApiController]
@@ -159,27 +207,27 @@ public class WebinarsController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult CreateWebinar([FromBody] CreateWebinarCommand command)
+    public async Task<IActionResult> CreateWebinar([FromBody] CreateWebinarCommand command)
     {
-        var webinarId = _mediator.Send(command);
+        var webinarId = await _mediator.Send(command);
         return CreatedAtAction(nameof(GetWebinar), new { id = webinarId }, webinarId);
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetWebinar(Guid id)
+    public async Task<IActionResult> GetWebinar(Guid id)
     {
         var query = new GetWebinarByIdQuery { Id = id };
-        var webinar = _mediator.Send(query);
+        var webinar = await _mediator.Send(query);
         return Ok(webinar);
     }
 }
 ```
 
-By delegating logic to the application layer, this structure ensures the presentation layer focuses on **handling requests and sending responses**.
+By offloading logic to the application layer, this layer focuses on **handling requests and responses**.
 
-### Error Handling with Middleware
+### Centralized Error Handling with Middleware
 
-For a robust system, centralizing error handling is important. Using an `ExceptionHandlingMiddleware` allows catching all exceptions and returning consistent responses to the client:
+Centralized error handling improves user experience and security:
 
 ```csharp
 public class ExceptionHandlingMiddleware
@@ -197,91 +245,70 @@ public class ExceptionHandlingMiddleware
         {
             await _next(context);
         }
+        catch(WebinarNotFoundException ex)
+        {
+            context.Response.StatusCode = StatusCodes.Status404NotFound;
+            await context.Response.WriteAsJsonAsync(new { Error = ex.Message });
+        }
         catch (Exception ex)
         {
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             await context.Response.WriteAsJsonAsync(new { Error = ex.Message });
         }
     }
 }
 ```
 
-This middleware captures exceptions and returns standardized responses, improving user experience and security.
+### Dependency Registration in `Program.cs`
 
-### Dependency Registration in `Startup.cs`
-
-To configure dependencies for each layer, we can add each necessary service in `Startup.cs`:
+Configuring dependencies in `Program.cs`:
 
 ```csharp
-public class Startup
-{
-    public void ConfigureServices(IServiceCollection services)
-    {
-        // Presentation Layer
-        services.AddControllers()
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers()
                 .AddApplicationPart(typeof(WebinarsController).Assembly);
 
-        // Domain and Application Layer
-        services.AddScoped<IWebinarRepository, WebinarRepository>();
-        services.AddScoped<CreateWebinarCommandHandler>();
-        services.AddScoped<GetWebinarByIdQueryHandler>();
+builder.Services.AddScoped<IWebinarRepository, WebinarRepository>();
 
-        // Register Mediator (for CQRS)
-        services.AddMediatR(typeof(CreateWebinarCommandHandler).Assembly);
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateWebinarCommandHandler).Assembly));
 
-        // Infrastructure Layer - External services, like DB context
-        services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<AppDbContext>(options =>
+           options.UseInMemoryDatabase("webinarsDb"));
 
-        // Error Handling Middleware Registration
-        services.AddTransient<ExceptionHandlingMiddleware>();
-    }
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-    {
-        if (env.IsDevelopment())
-        {
-            app.UseDeveloperExceptionPage();
-        }
-        else
-        {
-            app.UseExceptionHandler("/error");
-            app.UseHsts();
-        }
+var app = builder.Build();
 
-        // Adding Exception Handling Middleware
-        app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-        app.UseHttpsRedirection();
-        app.UseRouting();
-        app.UseAuthorization();
-
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapControllers();
-        });
-    }
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
 ```
 
-### Explanation of Each Registration
+### Benefits and Trade-offs of Clean Architecture
 
-1. **Presentation Layer**:
-   - `AddApplicationPart(typeof(WebinarsController).Assembly)`: Adds the assembly where the controllers are defined, necessary if they are in a separate project.
-
-2. **Domain and Application Layer**:
-   - `AddScoped<IWebinarRepository, WebinarRepository>()`: Registers the repository implementation for the `IWebinarRepository` interface, keeping the domain layer isolated.
-   - `AddScoped<CreateWebinarCommandHandler>()` and `AddScoped<GetWebinarByIdQueryHandler>()`: Registers command and query handlers that implement the application's use cases.
-
-3. **Mediator Registration**:
-   - `AddMediatR(typeof(CreateWebinarCommandHandler).Assembly)`: Registers Mediator, used to implement the CQRS pattern. It automatically locates command and query handlers, managing their execution.
-
-4. **Infrastructure Layer**:
-   - `AddDbContext<AppDbContext>(...)`: Configures the database context, allowing the infrastructure layer to handle data persistence using Entity Framework Core.
-
-5. **Error Handling Middleware**:
-   - `UseMiddleware<ExceptionHandlingMiddleware>()`: Adds custom middleware for centralized error handling, ensuring consistent responses in case of exceptions.
+- **Benefits**: 
+  - Facilitates effective testing strategies.
+  - Framework-agnostic design minimizes external dependencies.
+  - Clear separation of business logic enhances comprehension and modification.
+  - Supports incremental deployments and continuous integration.
+- **Trade-offs**: 
+  - **Complexity**: Introducing multiple boundaries can add overhead. Use boundaries wisely.
+  - **Code Duplication**: Different representations of entities may seem redundant but promote decoupling.
 
 ### Conclusion
 
-Clean Architecture promotes a modular and sustainable software structure. With well-defined layers, a system is easier to maintain and less prone to bugs
+Clean Architecture provides a sustainable, modular software structure. By maintaining well-defined layers, systems become easier to maintain and less error-prone, ready for evolving requirements and technologies.

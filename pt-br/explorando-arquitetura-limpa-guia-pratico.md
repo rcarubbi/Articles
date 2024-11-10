@@ -1,34 +1,54 @@
 # 🛠️ Explorando a Arquitetura Limpa: Um Guia Prático 📖
 
-A Arquitetura Limpa (Clean Architecture) é uma abordagem de design de software que visa separar as responsabilidades do sistema em camadas bem definidas. Essa estrutura modular torna o sistema mais fácil de manter e escalar, promovendo a **separação de preocupações** (separation of concerns) e facilitando a compreensão e modificações no código. Vamos detalhar como cada camada funciona e sua importância.
+A Arquitetura Limpa é uma abordagem de design de software que separa as responsabilidades do sistema em camadas bem definidas. Essa estrutura modular simplifica a manutenção e escalabilidade, promovendo a **separação de preocupações** e facilitando a compreensão e modificações no código. Vamos explorar como cada camada funciona e por que ela é importante.
 
-## Principais Conceitos da Arquitetura Limpa
+Imagine um cenário em que seu sistema precisa suportar um novo banco de dados ou uma interface de usuário diferente. Com a Arquitetura Limpa, essas mudanças se tornam mais fáceis de lidar, pois a lógica central de negócios permanece inalterada por dependências externas. Como enfatiza o Uncle Bob, o centro da sua aplicação deve ser composto pelos **casos de uso** e a lógica de negócios, não frameworks ou bancos de dados.
 
-1. **Arquitetura com Separação de Preocupações**:
-   A Clean Architecture distribui as responsabilidades da aplicação em camadas distintas, o que ajuda a reduzir dependências e facilita a manutenção e escalabilidade. Cada camada é responsável por uma parte específica da aplicação, tornando o código mais organizado e previsível.
+![Diagrama da arquitetura limpa](assets/image4.png)
 
-2. **Foco no Domínio**:
-   A camada de domínio é o coração do sistema, encapsulando a **lógica de negócios** e os elementos essenciais, como entidades e regras de negócio. Ela é independente de outras camadas, permitindo maior aderência aos requisitos de negócio e facilitando a criação de testes unitários.
+## Por Que Escolher a Arquitetura Limpa?
 
-3. **CQRS (Command Query Responsibility Segregation)**:
-   A implementação do padrão CQRS separa as operações de leitura e escrita de dados, otimizando o desempenho para cada tipo de operação. Esse padrão torna o código mais claro e melhora o gerenciamento de recursos, especialmente em aplicações de alta carga.
+A Arquitetura Limpa ajuda a mitigar vários problemas arquiteturais comuns:
 
-4. **Flexibilidade da Infraestrutura**:
-   A camada de infraestrutura gerencia integrações externas, como banco de dados e sistemas de mensageria, escondendo os detalhes de implementação do resto da aplicação. Essa flexibilidade permite modificar tecnologias ou integrações sem impactar a lógica de negócio.
+- **Compromissos Precoces**: Arquiteturas tradicionais muitas vezes forçam as equipes a tomar decisões importantes no início de um projeto, quando o entendimento do domínio do problema ainda é mínimo. A Arquitetura Limpa incentiva o **adiamento de decisões** sobre frameworks, bancos de dados e outros detalhes até que sejam necessários, mantendo o design aberto a mudanças conforme os requisitos evoluem.
+- **Sistemas Rígidos e Difíceis de Alterar**: Sem uma estrutura limpa, novos requisitos geralmente exigem uma solução "improvisada" ou uma reformulação custosa. Ao desacoplar as regras de negócio dos detalhes de implementação, a Arquitetura Limpa torna o sistema mais fácil de adaptar e expandir.
+- **Design Centrado em Frameworks**: Frameworks devem ser ferramentas, não a própria arquitetura. Eles podem evoluir e introduzir mudanças incompatíveis, mas se o seu sistema for independente de framework, ele não será afetado de forma tão grave. Uncle Bob enfatiza que frameworks são detalhes e devem ser mantidos na periferia.
+- **Pensamento Focado em Banco de Dados**: Muitos sistemas são construídos em torno do banco de dados, transformando tudo em operações CRUD. A Arquitetura Limpa trata o banco de dados como apenas mais um fornecedor de dados, garantindo que a lógica de negócios permaneça independente do banco de dados.
+- **Lógica de Negócios Dispersa**: Quando as regras de negócio estão espalhadas por várias camadas, entender ou modificar o comportamento se torna difícil. A Arquitetura Limpa centraliza a lógica de negócios dentro dos **casos de uso**, tornando-a fácil de localizar e manter.
+- **Testes Lentos e Frágeis**: O acoplamento da lógica de negócios com a interface de usuário ou o banco de dados pode tornar os testes lentos e frágeis. A Arquitetura Limpa promove o desacoplamento, permitindo testes de unidade rápidos e confiáveis que se concentram na lógica central.
 
-5. **Camada de Apresentação para Interação do Usuário**:
-   A camada de apresentação serve como interface para o usuário interagir com o sistema, geralmente por meio de APIs RESTful ou gRPC. Ela deve delegar a lógica de negócio para a camada de aplicação, mantendo-se fina e focada na interação do usuário.
+## Conceitos-Chave da Arquitetura Limpa
 
-6. **Injeção de Dependência (Dependency Injection)**:
-   O uso de injeção de dependência é crucial para manter a integridade da arquitetura. Ele ajuda a controlar as dependências entre camadas e permite que o sistema seja configurado de forma flexível, favorecendo testes e manutenção.
+### 1. Separação de Preocupações para Flexibilidade
+A Arquitetura Limpa organiza responsabilidades em camadas distintas, reduzindo dependências e facilitando a manutenção. Cada camada tem um papel específico, resultando em uma base de código mais previsível e organizada.
 
-### Exemplo Prático: Camadas e Funcionalidades
+### 2. Design Centrado no Domínio
+A camada de domínio é o núcleo do sistema, encapsulando a **lógica de negócios** e as entidades essenciais. Ela é independente das outras camadas, aderindo estritamente aos requisitos de negócios e simplificando os testes de unidade.
 
-A seguir, detalhamos cada camada com exemplos práticos:
+### 3. Casos de Uso e Lógica de Aplicação
+Os casos de uso são **regras de negócios específicas da aplicação** que coordenam interações entre entidades. Eles lidam com entrada e saída sem ter conhecimento de fontes de dados ou detalhes de apresentação.
 
-### 1. Camada de Domínio
+- **Modelos de Requisição e Resposta**: Use estruturas de dados simples para desacoplar casos de uso de frameworks, mantendo a lógica central focada e testável.
+- **CQRS (Separação de Responsabilidade de Comando e Consulta)**: O padrão CQRS separa as operações de leitura e escrita de dados, otimizando o desempenho e tornando o código mais claro. Essa abordagem garante que a camada de aplicação lide com a lógica de negócios sem preocupações com infraestrutura.
 
-No centro da arquitetura, a **Camada de Domínio** define as entidades de negócio e as regras fundamentais. É nela que encapsulamos a lógica essencial, como no exemplo abaixo com uma entidade `Webinar`:
+### 4. Infraestrutura como um Plugin
+A camada de infraestrutura gerencia integrações externas, como bancos de dados e sistemas de mensagens, ocultando detalhes de implementação do restante da aplicação. Tratar a infraestrutura como **plugins** facilita a substituição ou modificação da tecnologia sem impactar a lógica de negócios.
+
+- **Arquitetura Hexagonal**: Também conhecida como Ports and Adapters, esse padrão enfatiza uma separação limpa entre o núcleo e sistemas externos, aumentando a flexibilidade.
+
+### 5. Camada de Apresentação: A Interface do Usuário
+A camada de apresentação lida com a interação do usuário, frequentemente através de APIs RESTful ou gRPC. Ela delega a lógica de negócios para a camada de aplicação, focando apenas na entrada e saída.
+
+### 6. Injeção de Dependência
+A injeção de dependência é crucial para manter a integridade da arquitetura. Ela controla as dependências entre as camadas, permitindo flexibilidade e simplificando os testes.
+
+## Exemplo Prático: Camadas e Funcionalidade
+
+Vamos detalhar cada camada com exemplos práticos.
+
+### Camada de Domínio
+
+A **Camada de Domínio** define entidades de negócios e regras principais. Por exemplo, uma entidade `Webinar` pode ser assim:
 
 ```csharp
 public class Webinar
@@ -39,7 +59,7 @@ public class Webinar
 
     public Webinar(string name, DateTime scheduledOn)
     {
-        Id = Guid.NewGuid();
+        Id = Guid.NewGuid(); // Gera um identificador único para o webinar
         Name = name;
         ScheduledOn = scheduledOn;
     }
@@ -51,43 +71,41 @@ public class Webinar
 }
 ```
 
-Aqui, também definimos **interfaces de repositórios** e **exceções personalizadas**:
+As entidades são **autocontidas** e evoluem com base nas necessidades de negócios, não em restrições de sistemas externos. Também definimos **interfaces de repositório** e **exceções personalizadas**:
 
 ```csharp
 public interface IWebinarRepository
 {
-    Webinar GetById(Guid id);
-    void Add(Webinar webinar);
+    Task<Webinar?> GetById(Guid id, CancellationToken cancellationToken);
+
+    Task Add(Webinar webinar, CancellationToken cancellationToken);
 }
 
-public class WebinarNotFoundException : Exception
+public class WebinarNaoEncontradoException : Exception
 {
-    public WebinarNotFoundException(Guid webinarId)
-        : base($"Webinar with ID {webinarId} was not found.")
-    { }
+    public WebinarNaoEncontradoException(Guid webinarId)
+        : base($"Webinar com ID {webinarId} não foi encontrado.") { }
 }
 ```
 
-### 2. Camada de Aplicação
+### Camada de Aplicação
 
-A **Camada de Aplicação** orquestra as regras de negócio e implementa os **casos de uso** do sistema. É aqui que aplicamos o padrão **CQRS**, separando comandos e consultas para gerenciar operações de escrita e leitura de forma mais eficiente.
-
-#### Exemplo: Criar Webinar com Comando e Manipulador
+A **Camada de Aplicação** gerencia os casos de uso e implementa **CQRS** para separar comandos e consultas, garantindo eficiência.
 
 **Comando `CreateWebinarCommand`:**
 
 ```csharp
-public class CreateWebinarCommand
+public class CreateWebinarCommand : IRequest<Guid>
 {
-    public string Name { get; set; }
-    public DateTime ScheduledOn { get; set; }
+    public string Nome { get; set; }
+    public DateTime DataAgendada { get; set; }
 }
 ```
 
 **Manipulador `CreateWebinarCommandHandler`:**
 
 ```csharp
-public class CreateWebinarCommandHandler
+public class CreateWebinarCommandHandler : IRequestHandler<CreateWebinarCommand, Guid>
 {
     private readonly IWebinarRepository _repository;
 
@@ -96,24 +114,52 @@ public class CreateWebinarCommandHandler
         _repository = repository;
     }
 
-    public Guid Handle(CreateWebinarCommand command)
+    public async Task<Guid> Handle(CreateWebinarCommand command, CancellationToken cancellationToken)
     {
-        var webinar = new Webinar(command.Name, command.ScheduledOn);
-        _repository.Add(webinar);
+        var webinar = new Webinar(command.Nome, command.DataAgendada);
+        await _repository.Add(webinar, cancellationToken);
         return webinar.Id;
     }
 }
 ```
 
-#### Benefícios do CQRS
+**Consulta `GetWebinarByIdQuery`:**
 
-O uso de CQRS na camada de aplicação permite que o sistema lide separadamente com operações de leitura e escrita, o que melhora o desempenho e facilita o entendimento do fluxo de dados.
+```csharp
+public class GetWebinarByIdQuery : IRequest<Webinar?>
+{
+    public Guid Id { get; set; }
+}
+```
 
-### 3. Camada de Infraestrutura
+**Manipulador `GetWebinarByIdQueryHandler`:**
 
-A **Camada de Infraestrutura** lida com as integrações externas, como bancos de dados e sistemas de mensageria. Ela encapsula a complexidade de interação com esses sistemas, permitindo que a lógica de negócio permaneça desacoplada.
+```csharp
+public class GetWebinarByIdQueryHandler : IRequestHandler<GetWebinarByIdQuery, Webinar?>
+{
+    private readonly IWebinarRepository _repository;
 
-#### Exemplo: Repositório para Acesso ao Banco de Dados
+    public GetWebinarByIdQueryHandler(IWebinarRepository repository)
+    {
+        _repository = repository;
+    }
+
+    public async Task<Webinar?> Handle(GetWebinarByIdQuery request, CancellationToken cancellationToken)
+    {
+        var webinar = await _repository.GetById(request.Id, cancellationToken);
+        if (webinar is null)
+            throw new WebinarNaoEncontradoException(request.Id);
+
+        return webinar;
+    }
+}
+```
+
+Essa estrutura mantém os casos de uso isolados e facilmente testáveis.
+
+### Camada de Infraestrutura
+
+A **Camada de Infraestrutura** lida com integrações externas, como acesso ao banco de dados:
 
 ```csharp
 public class WebinarRepository : IWebinarRepository
@@ -125,26 +171,24 @@ public class WebinarRepository : IWebinarRepository
         _dbContext = dbContext;
     }
 
-    public Webinar GetById(Guid id)
+    public async Task<Webinar?> GetById(Guid id, CancellationToken cancellationToken)
     {
-        return _dbContext.Webinars.Find(id);
+        return await _dbContext.Webinars.FindAsync(id, cancellationToken);
     }
 
-    public void Add(Webinar webinar)
+    public async Task Add(Webinar webinar, CancellationToken cancellationToken)
     {
-        _dbContext.Webinars.Add(webinar);
-        _dbContext.SaveChanges();
+        await _dbContext.Webinars.AddAsync(webinar, cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }
 ```
 
-Ao isolar a lógica de acesso ao banco de dados, a camada de infraestrutura facilita a modificação ou substituição de tecnologias externas sem impactar o código central do sistema.
+Encapsulando essa lógica, o sistema permanece flexível a mudanças tecnológicas.
 
-### 4. Camada de Apresentação
+### Camada de Apresentação
 
-A **Camada de Apresentação** oferece uma interface para que os usuários e outros sistemas possam interagir com a aplicação, frequentemente via APIs REST. Essa camada deve ser leve, delegando a lógica de negócio para a camada de aplicação.
-
-#### Exemplo: API para Interação com Usuários
+A **Camada de Apresentação** fornece APIs para a interação do usuário:
 
 ```csharp
 [ApiController]
@@ -159,27 +203,27 @@ public class WebinarsController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult CreateWebinar([FromBody] CreateWebinarCommand command)
+    public async Task<IActionResult> CreateWebinar([FromBody] CreateWebinarCommand command)
     {
-        var webinarId = _mediator.Send(command);
+        var webinarId = await _mediator.Send(command);
         return CreatedAtAction(nameof(GetWebinar), new { id = webinarId }, webinarId);
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetWebinar(Guid id)
+    public async Task<IActionResult> GetWebinar(Guid id)
     {
         var query = new GetWebinarByIdQuery { Id = id };
-        var webinar = _mediator.Send(query);
+        var webinar = await _mediator.Send(query);
         return Ok(webinar);
     }
 }
 ```
 
-Ao delegar a lógica para a camada de aplicação, essa estrutura assegura que a camada de apresentação se concentre em **tratar requisições e enviar respostas**.
+Ao delegar a lógica para a camada de aplicação, essa camada se concentra em **lidar com requisições e respostas**.
 
-### Tratamento de Erros com Middleware
+### Manipulação Centralizada de Erros com Middleware
 
-Para um sistema robusto, é importante centralizar o tratamento de erros. Usar um `ExceptionHandlingMiddleware` permite capturar todas as exceções e retornar uma resposta consistente para o cliente:
+A manipulação centralizada de erros melhora a experiência do usuário e a segurança:
 
 ```csharp
 public class ExceptionHandlingMiddleware
@@ -197,93 +241,70 @@ public class ExceptionHandlingMiddleware
         {
             await _next(context);
         }
+        catch (WebinarNaoEncontradoException ex)
+        {
+            context.Response.StatusCode = StatusCodes.Status404NotFound;
+            await context.Response.WriteAsJsonAsync(new { Erro = ex.Message });
+        }
         catch (Exception ex)
         {
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-            await context.Response.WriteAsJsonAsync(new { Error = ex.Message });
+            context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+            await context.Response.WriteAsJsonAsync(new { Erro = ex.Message });
         }
     }
 }
 ```
 
-Esse middleware captura exceções e retorna respostas padronizadas, melhorando a experiência do usuário e a segurança.
+### Registro de Dependências no `Program.cs`
 
-### Registro de Dependências no `Startup.cs`
-
-Para configurar as dependências de cada camada, podemos adicionar cada serviço necessário no `Startup.cs`:
+Configurando dependências no `Program.cs`:
 
 ```csharp
-public class Startup
-{
-    public void ConfigureServices(IServiceCollection services)
-    {
-        // Camada de Apresentação
-        services.AddControllers()
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddControllers()
                 .AddApplicationPart(typeof(WebinarsController).Assembly);
 
-        // Camada de Domínio e Aplicação
-        services.AddScoped<IWebinarRepository, WebinarRepository>();
-        services.AddScoped<CreateWebinarCommandHandler>();
-        services.AddScoped<GetWebinarByIdQueryHandler>();
+builder.Services.AddScoped<IWebinarRepository, WebinarRepository>();
 
-        // Registro do Mediator (para CQRS)
-        services.AddMediatR(typeof(CreateWebinarCommandHandler).Assembly);
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(CreateWebinarCommandHandler).Assembly));
 
-        // Camada de Infraestrutura - Registro de serviços externos, como DB context
-        services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<AppDbContext>(options =>
+           options.UseInMemoryDatabase("webinarsDb"));
 
-        // Registro do Middleware de Tratamento de Erros
-        services.AddTransient<ExceptionHandlingMiddleware>();
-    }
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-    {
-        if (env.IsDevelopment())
-        {
-            app.UseDeveloperExceptionPage();
-        }
-        else
-        {
-            app.UseExceptionHandler("/error");
-            app.UseHsts();
-        }
+var app = builder.Build();
 
-        // Adicionando o Middleware de Tratamento de Exceções
-        app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
-        app.UseHttpsRedirection();
-        app.UseRouting();
-        app.UseAuthorization();
-
-        app.UseEndpoints(endpoints =>
-        {
-            endpoints.MapControllers();
-        });
-    }
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
 ```
 
-### Explicação de Cada Registro
+### Benefícios e Compromissos da Arquitetura Limpa
 
-1. **Camada de Apresentação**:
-   - `AddApplicationPart(typeof(WebinarsController).Assembly)`: Adiciona o assembly onde os controladores estão definidos, necessário caso estejam em um projeto separado.
-
-2. **Camada de Domínio e Aplicação**:
-   - `AddScoped<IWebinarRepository, WebinarRepository>()`: Registra a implementação do repositório para a interface `IWebinarRepository`, mantendo o isolamento da camada de domínio.
-   - `AddScoped<CreateWebinarCommandHandler>()` e `AddScoped<GetWebinarByIdQueryHandler>()`: Registra os manipuladores de comandos e consultas que implementam os casos de uso da aplicação.
-
-3. **Registro do Mediator**:
-   - `AddMediatR(typeof(CreateWebinarCommandHandler).Assembly)`: Registra o Mediator, que é usado para implementar o padrão CQRS. Ele localiza automaticamente os manipuladores de comando e consulta, gerenciando a execução de cada um.
-
-4. **Camada de Infraestrutura**:
-   - `AddDbContext<AppDbContext>(...)`: Configura o contexto do banco de dados, permitindo que a camada de infraestrutura faça a persistência de dados usando o Entity Framework Core.
-
-5. **Middleware de Tratamento de Exceções**:
-   - `UseMiddleware<ExceptionHandlingMiddleware>()`: Adiciona o middleware personalizado para tratamento centralizado de erros, garantindo uma resposta consistente em caso de exceções.
+- **Benefícios**: 
+  - Facilita estratégias de teste eficazes.
+  - Design independente de framework minimiza dependências externas.
+  - Separação clara da lógica de negócios melhora a compreensão e modificação.
+  - Suporta implantações incrementais e integração contínua.
+- **Compromissos**: 
+  - **Complexidade**: Introduzir múltiplas fronteiras pode adicionar sobrecarga. Use-as com sabedoria.
+  - **Duplicação de Código**: Representações diferentes de entidades podem parecer redundantes, mas promovem o desacoplamento.
 
 ### Conclusão
 
-A Arquitetura Limpa promove uma estrutura de software modular e sustentável. Com camadas bem definidas, um sistema é mais fácil de manter e menos suscetível a bugs e erros de design. A separação de preocupações permite uma evolução contínua do sistema, garantindo flexibilidade e robustez ao longo do tempo.
-
-Implementar a Arquitetura Limpa é um passo importante para desenvolver software de alta qualidade, especialmente em projetos complexos que exigem escalabilidade e facilidade de manutenção.
+A Arquitetura Limpa oferece uma estrutura modular e sustentável para software. Ao manter camadas bem definidas, os sistemas se tornam mais fáceis de manter e menos propensos a erros, prontos para requisitos e tecnologias em evolução.
