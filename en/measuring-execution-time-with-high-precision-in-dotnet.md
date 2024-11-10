@@ -2,6 +2,8 @@
 
 Measuring execution time in .NET applications is a common task when optimizing performance. In .NET Core, the best way to accurately capture the execution time of a method or operation is by using `Stopwatch.GetTimestamp` in combination with `Stopwatch.GetElapsedTime`. This method is preferable to other approaches because it provides higher precision and less overhead. Let’s understand why and compare it to other methods.
 
+![Choose Stopwatch.GetTimestamp for accuracy and efficiency](assets/image5.png)
+
 ## 1. Timing with `Stopwatch.GetTimestamp` and `Stopwatch.GetElapsedTime`
 
 Using `Stopwatch.GetTimestamp` along with `Stopwatch.GetElapsedTime` offers precision when measuring execution time without the overhead of creating unnecessary objects. The code structure is as follows:
