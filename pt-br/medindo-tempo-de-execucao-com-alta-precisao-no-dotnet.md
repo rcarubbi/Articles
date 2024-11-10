@@ -1,4 +1,4 @@
-# ⏱️ Medindo Tempo de Execução com Alta Precisão no .NET Core: A Abordagem Definitiva com Stopwatch.GetTimestamp 🎯
+# ⏱️ Medindo Tempo de Execução com Alta Precisão no .NET 🎯
 
 Medir o tempo de execução em aplicações .NET é uma tarefa comum ao otimizar o desempenho. No .NET Core, a melhor forma de capturar com precisão o tempo de execução de um método ou operação é usando `Stopwatch.GetTimestamp` em conjunto com `Stopwatch.GetElapsedTime`. Esse método é preferível a outras abordagens porque oferece maior precisão e menos overhead. Vamos entender o porquê e comparar com outras abordagens.
 
