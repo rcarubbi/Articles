@@ -81,9 +81,9 @@ public interface IWebinarRepository
     Task Add(Webinar webinar, CancellationToken cancellationToken);
 }
 
-public class WebinarNaoEncontradoException : Exception
+public class WebinarNotFoundException : Exception
 {
-    public WebinarNaoEncontradoException(Guid webinarId)
+    public WebinarNotFoundException(Guid webinarId)
         : base($"Webinar com ID {webinarId} não foi encontrado.") { }
 }
 ```
@@ -97,8 +97,8 @@ A **Camada de Aplicação** gerencia os casos de uso e implementa **CQRS** para 
 ```csharp
 public class CreateWebinarCommand : IRequest<Guid>
 {
-    public string Nome { get; set; }
-    public DateTime DataAgendada { get; set; }
+    public string Name { get; set; }
+    public DateTime ScheduledOn { get; set; }
 }
 ```
 
@@ -116,7 +116,7 @@ public class CreateWebinarCommandHandler : IRequestHandler<CreateWebinarCommand,
 
     public async Task<Guid> Handle(CreateWebinarCommand command, CancellationToken cancellationToken)
     {
-        var webinar = new Webinar(command.Nome, command.DataAgendada);
+        var webinar = new Webinar(command.Name, command.ScheduledOn);
         await _repository.Add(webinar, cancellationToken);
         return webinar.Id;
     }
@@ -148,7 +148,7 @@ public class GetWebinarByIdQueryHandler : IRequestHandler<GetWebinarByIdQuery, W
     {
         var webinar = await _repository.GetById(request.Id, cancellationToken);
         if (webinar is null)
-            throw new WebinarNaoEncontradoException(request.Id);
+            throw new WebinarNotFoundException(request.Id);
 
         return webinar;
     }
@@ -241,15 +241,15 @@ public class ExceptionHandlingMiddleware
         {
             await _next(context);
         }
-        catch (WebinarNaoEncontradoException ex)
+        catch (WebinarNotFoundException ex)
         {
             context.Response.StatusCode = StatusCodes.Status404NotFound;
-            await context.Response.WriteAsJsonAsync(new { Erro = ex.Message });
+            await context.Response.WriteAsJsonAsync(new { Error = ex.Message });
         }
         catch (Exception ex)
         {
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-            await context.Response.WriteAsJsonAsync(new { Erro = ex.Message });
+            await context.Response.WriteAsJsonAsync(new { Error = ex.Message });
         }
     }
 }
