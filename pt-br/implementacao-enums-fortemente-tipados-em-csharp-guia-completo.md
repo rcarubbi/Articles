@@ -1,4 +1,4 @@
-# 🔢 Implementação de Enums Fortemente Tipados em C# - Um Guia Completo 💪
+# 🔢 Enums Fortemente Tipados em C# - Um Guia Completo 💪
 
 Enums em C# são amplamente usados para representar um conjunto de valores constantes, mas eles possuem limitações, como a impossibilidade de anexar comportamentos ou dados adicionais diretamente a esses valores. Neste artigo, vamos abordar essas limitações e, principalmente, criar uma implementação de enums fortemente tipados que adiciona comportamento e dados aos valores dos enums.
 
