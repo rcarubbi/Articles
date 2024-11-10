@@ -1,4 +1,4 @@
-# 🔢 Strongly Typed Enum Implementation in C# - A Complete Guide 💪
+# 🔢 Strongly Typed Enum in C# - A Complete Guide 💪
 
 Enums in C# are widely used to represent a set of constant values, but they have limitations, such as the inability to attach behaviors or additional data directly to those values. In this article, we'll address these limitations and, more importantly, create a strongly typed enum implementation that adds behavior and data to enum values.
 
