@@ -121,8 +121,8 @@ UnitsNet pode ser facilmente combinado com outras APIs para criar um conversor d
 
 ```csharp
 decimal taxaDeConversao = 5.0m; // Exemplo de taxa fictícia
-Length comprimento = Length.FromMeters(100);
-decimal valorFinal = Convert.ToDecimal(comprimento.Meters) * taxaDeConversao;
+Volume volumeCombustivel = Volume.FromLiters(100);
+decimal valorFinal = Convert.ToDecimal(volumeCombustivel.Liters) * taxaDeConversao;
 Console.WriteLine($"Valor convertido: {valorFinal}");
 ```
 
