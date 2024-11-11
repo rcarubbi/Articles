@@ -97,7 +97,7 @@ UnitsNet enables you to display values formatted according to the local measurem
 
 ```csharp
 Temperature temperature = Temperature.FromDegreesCelsius(30);
-Console.WriteLine(temperature.ToString("c", CultureInfo.InvariantCulture));  // Output: 30 °C
+Console.WriteLine(temperature);  // Output: 30 °C
 ```
 
 With this, you can easily adapt your system to work with standard formats, like Fahrenheit for the United States and Celsius for Brazil and Europe.
@@ -108,7 +108,7 @@ Temperature is a unit of measure with different scales (Celsius, Kelvin, Fahrenh
 
 ```csharp
 Temperature tempCelsius = Temperature.FromDegreesCelsius(25);
-Temperature tempFahrenheit = tempCelsius.ToUnit(UnitsNet.Units.TemperatureUnit.Fahrenheit);
+Temperature tempFahrenheit = tempCelsius.ToUnit(UnitsNet.Units.TemperatureUnit.DegreeFahrenheit);
 
 Console.WriteLine($"Temperature in Fahrenheit: {tempFahrenheit}");
 ```
@@ -122,7 +122,7 @@ UnitsNet can be easily combined with other APIs to create a currency converter, 
 ```csharp
 decimal conversionRate = 5.0m; // Example of a fictitious rate
 Length length = Length.FromMeters(100);
-decimal finalValue = length.Meters * conversionRate;
+decimal finalValue = Convert.ToDecimal(length.Meters) * conversionRate;
 Console.WriteLine($"Converted value: {finalValue}");
 ```
 
