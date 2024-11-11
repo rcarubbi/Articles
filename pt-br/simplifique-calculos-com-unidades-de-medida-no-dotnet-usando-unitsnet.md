@@ -131,9 +131,3 @@ Console.WriteLine($"Valor convertido: {valorFinal}");
 UnitsNet simplifica operações complexas com unidades, evitando conversões manuais e reduzindo o risco de erros no código. É uma ferramenta prática, flexível e de fácil utilização, especialmente útil para desenvolvedores que trabalham com medidas físicas, sejam elas básicas ou compostas.
 
 Com UnitsNet, você ganha em clareza e precisão, padronizando o uso de unidades em seu projeto .NET, seja ele científico, de engenharia, ou comercial.
-
-## Comentários
-
-O Microsoft Bot Framework tem um recurso muito legal chamado FormFlow, é um jeito prático de montar formulários interativos no bot, perfeito pra quando a gente precisa coletar informações estruturadas, tipo nome, email, preferências e coisas assim, sem precisar codificar cada pergunta. Ele vai guiando o usuário como uma conversa, o que deixa a experiência mais natural.
-
-No Chatbot Studio, implementei o bloco Form pra simplificar o uso do FormFlow. É só adicionar o bloco e configurar os campos que o bot deve perguntar, e pronto! Além disso, já dá pra fazer validações customizadas chamando APIs externas, então você pode checar as respostas do usuário do jeito que precisar. Dá até pra suprimir perguntas com lógicas específicas que você injeta via API, deixando o formulário bem adaptável e inteligente. No final ainda da pra colocar um sumário com todas as respostas e pedir pro usuário confirmar ou ate editar alguma resposta.
