@@ -121,8 +121,8 @@ UnitsNet can be easily combined with other APIs to create a currency converter, 
 
 ```csharp
 decimal conversionRate = 5.0m; // Example of a fictitious rate
-Length length = Length.FromMeters(100);
-decimal finalValue = Convert.ToDecimal(length.Meters) * conversionRate;
+Volume volume = Volume.FromLiters(100);
+decimal finalValue = Convert.ToDecimal(volume.Liters) * conversionRate;
 Console.WriteLine($"Converted value: {finalValue}");
 ```
 
