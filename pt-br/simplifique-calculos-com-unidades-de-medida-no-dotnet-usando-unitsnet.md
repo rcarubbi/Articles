@@ -1,4 +1,4 @@
-# ➗ Simplifique Cálculos com Unidades de Medida no .NET Usando UnitsNet 🧮
+# ➗ Simplifique Cálculos no .NET com UnitsNet 🧮
 
 A biblioteca [UnitsNet](https://github.com/angularsen/UnitsNet) é uma excelente opção para desenvolvedores que desejam lidar com unidades de medida em projetos .NET de maneira precisa, prática e com código mais limpo. Este artigo irá explorar as funcionalidades do UnitsNet, destacando como ela pode ser usada para simplificar conversões e cálculos com unidades de medida, além de evitar erros comuns relacionados à conversão manual.
 
