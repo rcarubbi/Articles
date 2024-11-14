@@ -1,6 +1,6 @@
 # ✉️ Transactional Outbox Pattern: Garanta a Consistência de Dados com Mensageria Assíncrona no .NET 📬
 
-Neste artigo, vamos explorar o **Transactional Outbox Pattern**, um padrão essencial para garantir a consistência de dados em sistemas que utilizam mensageria. Esse padrão é amplamente utilizado para situações onde é preciso garantir que uma mudança no banco de dados seja replicada com segurança em outros sistemas, como filas de mensagens. Neste exemplo, utilizaremos o **Amazon SQS** e a biblioteca **MassTransit** para implementar o Outbox Pattern. Vale lembrar que esse padrão é agnóstico ao serviço de mensageria e pode ser utilizado com RabbitMQ, Azure Service Bus, entre outros.
+Neste artigo, vamos explorar o **Transactional Outbox Pattern**, um padrão essencial para garantir a consistência de dados em sistemas que utilizam mensageria. Esse padrão é amplamente utilizado para situações onde é preciso garantir que uma mudança no banco de dados seja replicada com segurança em outros sistemas, como filas de mensagens. Neste exemplo, utilizaremos o **RabbitMQ** e a biblioteca **MassTransit** para implementar o Outbox Pattern. Vale lembrar que esse padrão é agnóstico ao serviço de mensageria e pode ser utilizado com Amazon SQS, Azure Service Bus, entre outros.
 
 ---
 
