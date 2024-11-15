@@ -84,9 +84,9 @@ O projeto de exemplo implementa o Outbox Pattern dentro de uma estrutura baseada
    ```
    - **Explicação**: O *Command Handler* atualiza o preço do produto, dispara um evento de aplicação (`ProductPriceUpdated` na camada de aplicação) e persiste as alterações.
 
-3. **Camada de Domínio**: Define as entidades e eventos de domínio. Uma entidade base como `Entity` gerencia eventos de domínio em memória:
+3. **Camada de Domínio**: Define as entidades e eventos de domínio. Uma entidade base como `AggregateRoot` gerencia eventos de domínio em memória:
    ```csharp
-   public abstract class Entity
+   public abstract class AggregateRoot
    {
        private readonly List<IDomainEvent> _domainEvents = new();
        public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
@@ -100,7 +100,7 @@ O projeto de exemplo implementa o Outbox Pattern dentro de uma estrutura baseada
    }
    ```
 
-   Uma entidade concreta, como `Product`, herda de `Entity` e pode gerar eventos de domínio:
+   Uma entidade concreta, como `Product`, herda de `AggregateRoot` e pode gerar eventos de domínio:
    ```csharp
    public class Product(string name, decimal price) : AggregateRoot(Guid.NewGuid())
    {
