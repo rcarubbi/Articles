@@ -84,9 +84,9 @@ The example project implements the Outbox Pattern within a Clean Architecture-ba
    ```
    - **Explanation**: The *Command Handler* updates the product price, triggers an application event (`ProductPriceUpdated` in the application layer), and persists the changes.
 
-3. **Domain Layer**: Defines entities and domain events. A base entity like `Entity` manages in-memory domain events:
+3. **Domain Layer**: Defines entities and domain events. A base entity like `AggregateRoot` manages in-memory domain events:
    ```csharp
-   public abstract class Entity
+   public abstract class AggregateRoot
    {
        private readonly List<IDomainEvent> _domainEvents = new();
        public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
@@ -100,7 +100,7 @@ The example project implements the Outbox Pattern within a Clean Architecture-ba
    }
    ```
 
-   A concrete entity like `Product` inherits from `Entity` and can raise domain events:
+   A concrete entity like `Product` inherits from `AggregateRoot` and can raise domain events:
    ```csharp
    public class Product(string name, decimal price) : AggregateRoot(Guid.NewGuid())
    {
