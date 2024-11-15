@@ -56,7 +56,7 @@ services.AddMassTransit(x =>
 
 ---
 
-### Explicação do Projeto de Exemplo
+### Explicação do [Projeto de Exemplo](https://github.com/rcarubbi/OutboxPatternExample)
 
 O projeto de exemplo implementa o Outbox Pattern dentro de uma estrutura baseada na Clean Architecture. Para uma compreensão mais profunda da Clean Architecture, confira este [artigo](https://www.tabnews.com.br/raphaelcarubbi/explorando-a-arquitetura-limpa-um-guia-pratico).
 
@@ -282,6 +282,6 @@ O Outbox Pattern é uma estratégia fundamental para manter a consistência de d
 
 O projeto de exemplo ilustra como você pode integrar essas tecnologias para construir uma aplicação robusta. Desde a persistência das entidades até a publicação segura dos eventos, cada camada da arquitetura desempenha um papel essencial. O uso do DomainEventsInterceptor é crucial para garantir que eventos de domínio sejam tratados corretamente em memória antes de serem publicados, evitando inconsistências.
 
-Se você quer aplicar essa abordagem no seu projeto ou explorar o código em detalhes, acesse o repositório OutboxPatternExample. Para uma compreensão mais profunda da Clean Architecture, não deixe de conferir o artigo linkado sobre o tema. E se tiver dúvidas ou sugestões, sinta-se à vontade para contribuir ou comentar no GitHub.
+Se você quer aplicar essa abordagem no seu projeto ou explorar o código em detalhes, acesse o repositório [OutboxPatternExample](https://github.com/rcarubbi/OutboxPatternExample). Para uma compreensão mais profunda da Clean Architecture, não deixe de conferir o artigo linkado sobre o tema. E se tiver dúvidas ou sugestões, sinta-se à vontade para contribuir ou comentar no GitHub.
 
 Essa arquitetura oferece uma base sólida para aplicações distribuídas modernas, garantindo consistência de dados, escalabilidade e manutenção simplificada.
