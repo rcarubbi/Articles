@@ -6,20 +6,20 @@ Em sistemas de software, o termo **data sink** refere-se a um ponto de destino o
 
 ---
 
-## **O Que é um Data Sink?**
+## O Que é um Data Sink?
 
-Um **data sink** é responsável por processar ou armazenar os dados recebidos. Ele pode ser configurado para:
-- Acumular dados e processá-los em **lotes**.
-- Adiar o processamento por um período para **otimizar recursos**.
-- Operar em tempo real, utilizando **buffers e workers** para gerenciar alta concorrência.
+Um **Data Sink** é um destino onde os dados são enviados para processamento, armazenamento ou análise. Ele pode ser configurado para:
 
-Essas variações tornam os **data sinks** extremamente úteis em sistemas modernos, onde o volume de dados é alto e a eficiência no processamento é crucial.
+- Processar dados em **lotes**.
+- Adiar o processamento para otimizar recursos.
+- Operar em tempo real, utilizando buffers e workers para gerenciar alta concorrência.
+- **Escalar dinamicamente**, ajustando o número de workers de acordo com a demanda.
 
 ---
 
-## **Abordagens para Implementar um Data Sink**
+## Implementações de Data Sink em .NET
 
-Nesta seção, exploramos três tipos de data sinks implementados em .NET, cada um atendendo a diferentes requisitos.
+Neste artigo, apresentamos quatro implementações principais, cada uma projetada para cenários específicos.
 
 ---
 
@@ -148,20 +148,38 @@ graph TD
 
 ---
 
-### **Resumo de Escolha**
+### **4. Elastic Worker Data Sink**
 
-Este diagrama ajuda a decidir qual tipo de data sink usar com base no requisito:
+O **Elastic Worker Data Sink** leva o conceito de concorrência a um novo nível, escalando dinamicamente o número de workers com base no tamanho da fila e no fator de escalabilidade configurado. Ele é ideal para cenários onde a carga de trabalho pode variar drasticamente.
 
-```mermaid
-graph TD
-    A[Escolha do Data Sink] --> B{Processar em Lotes?}
-    B -->|Sim| C[Batching Data Sink]
-    B -->|Não| D{Precisa de atraso controlado?}
-    D -->|Sim| E[Delayed Data Sink]
-    D -->|Não| F[Alta concorrência e buffering?]
-    F -->|Sim| G[Buffered Data Sink]
-    F -->|Não| H[Outros tipos de Data Sink]
+#### **Exemplo de Código**
+
+```csharp
+var elasticSink = new ElasticWorkerDataSink<string>(
+    minWorkers: 2,
+    maxWorkers: 10,
+    scalingFactor: 4, // Ajusta os workers quando o tamanho da fila for 4x ou 1/4 dos workers atuais
+    process: async item =>
+    {
+        Console.WriteLine($"Processing {item} by worker {Task.CurrentId}");
+        await Task.Delay(200); // Simula processamento
+    });
+
+// Adicionando itens ao sink
+await elasticSink.ProcessAsync("Item1");
+await elasticSink.ProcessAsync("Item2");
+
+// Finalizando o sink
+await elasticSink.CompleteAsync();
 ```
+
+---
+
+## Benefícios do Elastic Worker Data Sink
+
+1. **Escalabilidade Automática**: O número de workers aumenta ou diminui de forma dinâmica, baseado no tamanho da fila.
+2. **Otimização de Recursos**: Reduz o consumo de recursos durante períodos de baixa carga.
+3. **Configuração Flexível**: Permite ajustar os limites mínimos, máximos e o fator de escalabilidade para se adequar a diferentes cenários.
 
 ---
 
@@ -177,7 +195,7 @@ A escolha do data sink depende do seu cenário:
   - Use quando o processamento deve ser adiado para evitar sobrecarga ou reagir a eventos com atraso controlado.
   - Exemplo: Notificações ou debouncing de eventos.
 
-- **BufferedDataSink**:
+- **BufferedDataSink ou ElasticWorkerDataSink**:
   - Use quando há alta concorrência e você precisa gerenciar múltiplos processos simultaneamente.
   - Exemplo: Processar mensagens de filas distribuídas.
 
