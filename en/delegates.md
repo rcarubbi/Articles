@@ -107,18 +107,22 @@ notifier("Hello from Anonymous Delegate!");
 
 ---
 
-## C# 3.0 – Lambda Expressions, Func, Action, and Predicate
+## C# 3.0 — Lambda Expressions, Predefined Generic Delegates and Expression Trees
 
-C# 3.0 introduced **Lambda Expressions** and the predefined generic delegates **Func**, **Action**, and **Predicate**, which further simplified the use of delegates.
+C# 3.0 introduced **Lambda Expressions**, **Expression Trees** and the **predefined generic delegates** `Func`, `Action`, and `Predicate`, which further simplified the use of delegates.
 
 ### Lambda Expressions
+It's a simplier and more concise way of writing anonymous delegates.
+
+**Example:**
 
 ```csharp
 NotifyDelegate notifier = message => Console.WriteLine("Lambda: " + message);
 notifier("Hello from Lambda!");
 ```
 
-### Func, Action, and Predicate
+### Predefined Generic Delegates
+In C# 3.0 some built-in delegates became popular such as:
 
 - **Func**: For methods that return values, where the last type is the return type and the preceding types are the input parameter types.  
 - **Action**: For methods that do not return values.  
