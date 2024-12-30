@@ -201,7 +201,7 @@ public class MathHelper
 
 ---
 
-## C# 7.0 – Local Functions and Pattern Matching
+## C# 7.0 – Local Functions
 
 ### Local Functions
 

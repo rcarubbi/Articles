@@ -188,7 +188,7 @@ public class MathHelper
 
 ---
 
-## C# 7.0 - Funções Locais e Correspondência de Padrões
+## C# 7.0 - Funções Locais
 
 ### Funções Locais
 As **Funções Locais** permitem definir métodos dentro de outros métodos. Isso ajuda a encapsular lógica que não precisa ser exposta fora do escopo atual.
